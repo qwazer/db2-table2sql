@@ -2,6 +2,7 @@ package com.github.table2sql.db2;
 
 
 import com.github.table2sql.db2.service.Service;
+import com.github.table2sql.db2.service.TableNamesDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +20,9 @@ public class Application implements CommandLineRunner {
     @Autowired
     private Service service;
 
+    @Autowired
+    private TableNamesDao tableNamesDao;
+
 
     @Value("#{'${tableNames}'.split(',')}")
     private List<String> tableNames;
@@ -35,8 +39,11 @@ public class Application implements CommandLineRunner {
 
        // System.out.println("tableNames = " + tableNames);
 
+        List<String> list = tableNamesDao.findTableNames();
 
-        for (String tableName : tableNames) {
+        list.addAll(tableNames);
+
+        for (String tableName : list) {
             service.tableDataToFile(tableName);
         }
 
