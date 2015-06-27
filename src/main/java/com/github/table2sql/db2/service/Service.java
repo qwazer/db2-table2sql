@@ -38,7 +38,7 @@ public class Service {
 
         logger.debug("Process table " + tableName);
 
-        String sql = "SELECT * FROM " + tableName + " fetch first "+maxRowsSize+" rows only with ur";
+        String sql = "SELECT * FROM " + tableName + " ORDER by 1 FETCH first "+maxRowsSize+" rows only with ur";
 
         String s = jdbcTemplate.query(sql, new InsertStatementResultSetExtractor(tableName));
 
