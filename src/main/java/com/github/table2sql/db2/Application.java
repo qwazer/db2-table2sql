@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class Application implements CommandLineRunner {
         list.addAll(tableNames);
 
         for (String tableName : list) {
-            service.tableDataToFile(tableName);
+            service.saveTableDataToFile(tableName);
         }
 
     }
