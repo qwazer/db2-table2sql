@@ -23,12 +23,12 @@ public class FileNameConstructor {
         String schemaName = "";
         String tableName = "";
         if (s.contains(".")){
-            String[] strings = s.split(".");
-            if (strings.length>1){
+            String[] strings = s.split("\\.");
+            if (strings.length>2){
                 throw new IllegalArgumentException();
             }
-            schemaName =strings[0];
-            tableName = strings[1];
+            schemaName =strings[0].trim();
+            tableName = strings[1].trim();
         } else {
          tableName = s;
         }

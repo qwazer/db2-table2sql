@@ -1,6 +1,8 @@
 package com.github.table2sql.db2.service;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.io.*;
 import java.sql.*;
+import java.util.logging.Logger;
 
 /**
  * @author ar
@@ -17,6 +20,8 @@ import java.sql.*;
  */
 @Component
 public class Service {
+
+    private static final Log logger = LogFactory.getLog(Service.class);
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -31,6 +36,7 @@ public class Service {
 
     public void tableDataToFile(final String tableName) throws SQLException, IOException {
 
+        logger.debug("Process table " + tableName);
 
         String sql = "SELECT * FROM " + tableName;
 
@@ -113,7 +119,9 @@ public class Service {
         });
 
 
-        FileUtils.writeStringToFile(new File(fileNameConstructor.convert(tableName)), s);
+        String fileName =fileNameConstructor.convert(tableName);
+        logger.info(String.format("save tabledata of %s to file %s", tableName, fileName));
+        FileUtils.writeStringToFile(new File(fileName), s);
     }
 
 }
