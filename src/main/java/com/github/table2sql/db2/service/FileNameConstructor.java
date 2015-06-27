@@ -27,7 +27,7 @@ public class FileNameConstructor {
             if (strings.length>2){
                 throw new IllegalArgumentException();
             }
-            schemaName =strings[0].trim();
+            schemaName = strings[0].trim();
             tableName = strings[1].trim();
         } else {
          tableName = s;

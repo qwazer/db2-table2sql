@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class TableNamesDao {
 
-    private static final Log logger = LogFactory.getLog(Service.class);
+    private static final Log logger = LogFactory.getLog(TableNamesDao.class);
 
     private final JdbcTemplate jdbcTemplate;
 

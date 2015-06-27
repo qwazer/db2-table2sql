@@ -1,7 +1,7 @@
 package com.github.table2sql.db2;
 
 
-import com.github.table2sql.db2.service.Service;
+import com.github.table2sql.db2.service.TableDataProcessor;
 import com.github.table2sql.db2.service.TableNamesDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +17,7 @@ public class Application implements CommandLineRunner {
 
 
     @Autowired
-    private Service service;
+    private TableDataProcessor tableDataProcessor;
 
     @Autowired
     private TableNamesDao tableNamesDao;
@@ -43,7 +43,7 @@ public class Application implements CommandLineRunner {
         list.addAll(tableNames);
 
         for (String tableName : list) {
-            service.saveTableDataToFile(tableName);
+            tableDataProcessor.readTableDataAndSaveToFile(tableName);
         }
 
     }

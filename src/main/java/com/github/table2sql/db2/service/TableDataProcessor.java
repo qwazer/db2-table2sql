@@ -6,7 +6,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.sql.*;
@@ -15,15 +14,15 @@ import java.sql.*;
  * @author ar
  * @since Date: 19.06.2015
  */
-@Component
-public class Service {
+@org.springframework.stereotype.Service
+public class TableDataProcessor {
 
-    private static final Log logger = LogFactory.getLog(Service.class);
+    private static final Log logger = LogFactory.getLog(TableDataProcessor.class);
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public Service(JdbcTemplate jdbcTemplate) {
+    public TableDataProcessor(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -34,7 +33,7 @@ public class Service {
     private Integer maxRowsSize=1000;
 
 
-    public void saveTableDataToFile(final String tableName) throws SQLException, IOException {
+    public void readTableDataAndSaveToFile(final String tableName) throws SQLException, IOException {
 
         logger.debug("Process table " + tableName);
 
