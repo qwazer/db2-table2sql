@@ -1,9 +1,11 @@
 package com.github.table2sql.db2.service;
 
+import com.oracle.jrockit.jfr.ValueDefinition;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -33,12 +35,15 @@ public class Service {
     @Autowired
     private FileNameConstructor fileNameConstructor;
 
+    @Value("${max.rows.size}")
+    private Integer maxRowsSize=1000;
+
 
     public void tableDataToFile(final String tableName) throws SQLException, IOException {
 
         logger.debug("Process table " + tableName);
 
-        String sql = "SELECT * FROM " + tableName;
+        String sql = "SELECT * FROM " + tableName + " fetch first "+maxRowsSize+" rows only with ur";
 
         String s = jdbcTemplate.query(sql, new ResultSetExtractor<String>() {
             @Override
