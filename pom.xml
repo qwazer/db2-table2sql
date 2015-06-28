@@ -1,117 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github</groupId>
-	<artifactId>db2-table2sql</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+    <groupId>com.github</groupId>
+    <artifactId>db2-table2sql</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-	<name>db2-table2sql</name>
-	<description>db2-table2sql</description>
+    <name>db2-table2sql</name>
+    <description>db2-table2sql</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.2.4.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.2.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.7</java.version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.7</java.version>
         <bintray.repo>qwazer/maven</bintray.repo>
-		<bintray.package>db2-table2sql</bintray.package>
-	</properties>
+        <bintray.package>db2-table2sql</bintray.package>
+    </properties>
 
-	<scm>
-		<connection>scm:git:git@github.com:qwazer/db2-table2sql.git</connection>
-		<url>scm:git:git@github.com:qwazer/db2-table2sql.git</url>
-		<developerConnection>scm:git:git@github.com:qwazer/db2-table2sql.git</developerConnection>
-		<tag>HEAD</tag>
-	</scm>
+    <scm>
+        <connection>scm:git:git@github.com:qwazer/db2-table2sql.git</connection>
+        <url>scm:git:git@github.com:qwazer/db2-table2sql.git</url>
+        <developerConnection>scm:git:git@github.com:qwazer/db2-table2sql.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 
-	<distributionManagement>
-		<repository>
-			<id>bintray</id>
-			<url>https://api.bintray.com/maven/${bintray.repo}/${bintray.package}</url>
-		</repository>
-	</distributionManagement>
-
-
-
-	<repositories>
-		<repository>
-			<id>otn-maven-repo</id>
-			<name>Maven repo with artifacts from Oracle Technology Network for private usage</name>
-			<url>http://otn-maven-repo.googlecode.com/svn/m2</url>
-		</repository>
-	</repositories>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.1</version>
-				<configuration>
-					<tagNameFormat>v@{project.version}</tagNameFormat>
-					<useReleaseProfile>false</useReleaseProfile>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <distributionManagement>
+        <repository>
+            <id>bintray</id>
+            <url>https://api.bintray.com/maven/${bintray.repo}/${bintray.package}</url>
+        </repository>
+    </distributionManagement>
 
 
-	<dependencies>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jdbc</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.4</version>
-		</dependency>
+    <repositories>
+        <repository>
+            <id>otn-maven-repo</id>
+            <name>Maven repo with artifacts from Oracle Technology Network for private usage</name>
+            <url>http://otn-maven-repo.googlecode.com/svn/m2</url>
+        </repository>
+    </repositories>
 
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+    <dependencies>
 
-		<!--Unfortunately due the binary license there is no public repository with the Oracle Driver JAR.
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--Unfortunately due the binary license there is no public repository with the Oracle Driver JAR.
 Will try to download it from otn-maven-repo
 
 Download latest jar from http://www.oracle.com/technology/software/tech/java/sqlj_jdbc/index.html.
 mvn install:install-file -Dfile=db2jcc4.jar -DgroupId=com.ibm.db2 -DartifactId=db2jcc4 -Dversion=4.19.26 -Dpackaging=jar -DgeneratePom=true
 -->
-		<dependency>
-			<groupId>com.ibm.db2</groupId>
-			<artifactId>db2jcc4</artifactId>
-			<version>4.19.26</version>
-		</dependency>
+        <dependency>
+            <groupId>com.ibm.db2</groupId>
+            <artifactId>db2jcc4</artifactId>
+            <version>4.19.26</version>
+        </dependency>
 
-	</dependencies>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
