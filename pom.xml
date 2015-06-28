@@ -4,7 +4,7 @@
 
     <groupId>com.github</groupId>
     <artifactId>db2-table2sql</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>db2-table2sql</name>
@@ -28,7 +28,7 @@
         <connection>scm:git:git@github.com:qwazer/db2-table2sql.git</connection>
         <url>scm:git:git@github.com:qwazer/db2-table2sql.git</url>
         <developerConnection>scm:git:git@github.com:qwazer/db2-table2sql.git</developerConnection>
-        <tag>v0.2.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
