@@ -1,5 +1,6 @@
 package com.github.table2sql.db2;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class ApplicationTests {
 	private Application application;
 
 	@Test
+	@Ignore
 	public void contextLoads() {
 	}
 

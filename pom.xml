@@ -21,7 +21,24 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
+        <bintray.repo>qwazer/maven</bintray.repo>
+		<bintray.package>db2-table2sql</bintray.package>
 	</properties>
+
+	<scm>
+		<connection>scm:git:git@github.com:qwazer/db2-table2sql.git</connection>
+		<url>scm:git:git@github.com:qwazer/db2-table2sql.git</url>
+		<developerConnection>scm:git:git@github.com:qwazer/db2-table2sql.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>bintray</id>
+			<url>https://api.bintray.com/maven/${bintray.repo}/${bintray.package}</url>
+		</repository>
+	</distributionManagement>
+
 
 
 	<repositories>
@@ -31,6 +48,21 @@
 			<url>http://otn-maven-repo.googlecode.com/svn/m2</url>
 		</repository>
 	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<useReleaseProfile>false</useReleaseProfile>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 
 	<dependencies>
