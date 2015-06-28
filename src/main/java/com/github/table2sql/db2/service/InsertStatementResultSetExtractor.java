@@ -13,9 +13,6 @@ import java.text.SimpleDateFormat;
  */
 class InsertStatementResultSetExtractor implements ResultSetExtractor<String> {
     private final String tableName;
-//    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//    private static DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-//    private static DateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSS");
 
     public InsertStatementResultSetExtractor(String tableName) {
         this.tableName = tableName;
@@ -63,19 +60,16 @@ class InsertStatementResultSetExtractor implements ResultSetExtractor<String> {
 
                     case Types.DATE:
                         Date date = rs.getDate(i + 1);
-                       // columnValues += date == null ? "null" : String.format("'%1$TF'", date) ;
-                        columnValues += date == null ? "null" : "'" + date.toString() + "'"  ;
+                        columnValues += formatSqlDateTime(date);
                         break;
 
                     case Types.TIME:
                         Time time= rs.getTime(i + 1);
-                       // columnValues += time == null ? "null" : String.format("'%1$TT'", time) ;
-                        columnValues += time == null ? "null" : "'" + time.toString() + "'" ;
+                        columnValues += formatSqlDateTime(time);
                         break;
                     case Types.TIMESTAMP:
                         Timestamp timestamp = rs.getTimestamp(i + 1);
-                     //   columnValues += timestamp == null ? "null" : String.format("'%1$TF %1$TT.%1$TN'", timestamp);
-                        columnValues += timestamp == null ? "null" : "'" + timestamp.toString() + "'";
+                        columnValues += formatSqlDateTime(timestamp);
                         break;
                     default:
                         v = rs.getString(i + 1);
@@ -94,5 +88,9 @@ class InsertStatementResultSetExtractor implements ResultSetExtractor<String> {
         }
 
         return stringBuilder.toString();
+    }
+
+    private static String formatSqlDateTime(java.util.Date date) {
+        return date == null ? "null" : "'" + date.toString() + "'";
     }
 }
