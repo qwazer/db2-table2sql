@@ -3,10 +3,9 @@ package com.github.table2sql.db2.service;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * @author ar
@@ -14,6 +13,9 @@ import java.sql.Types;
  */
 class InsertStatementResultSetExtractor implements ResultSetExtractor<String> {
     private final String tableName;
+//    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//    private static DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+//    private static DateFormat timestampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSS");
 
     public InsertStatementResultSetExtractor(String tableName) {
         this.tableName = tableName;
@@ -36,7 +38,6 @@ class InsertStatementResultSetExtractor implements ResultSetExtractor<String> {
             columnNames += rsmd.getColumnName(i + 1);
         }
 
-        java.util.Date d = null;
         StringBuilder stringBuilder = new StringBuilder();
 
         while (rs.next()) {
@@ -61,21 +62,21 @@ class InsertStatementResultSetExtractor implements ResultSetExtractor<String> {
                         break;
 
                     case Types.DATE:
-                        d = rs.getDate(i + 1);
-                    case Types.TIME:
-                        if (d == null) d = rs.getTime(i + 1);
-                    case Types.TIMESTAMP:
-                        if (d == null) d = rs.getTimestamp(i + 1);
-
-                        if (d == null) {
-                            columnValues += "null";
-                        } else {
-// todo                           columnValues += "TO_DATE('"
-//                                    + dateFormat.format(d)
-//                                    + "', 'YYYY/MM/DD HH24:MI:SS')";
-                        }
+                        Date date = rs.getDate(i + 1);
+                       // columnValues += date == null ? "null" : String.format("'%1$TF'", date) ;
+                        columnValues += date == null ? "null" : "'" + date.toString() + "'"  ;
                         break;
 
+                    case Types.TIME:
+                        Time time= rs.getTime(i + 1);
+                       // columnValues += time == null ? "null" : String.format("'%1$TT'", time) ;
+                        columnValues += time == null ? "null" : "'" + time.toString() + "'" ;
+                        break;
+                    case Types.TIMESTAMP:
+                        Timestamp timestamp = rs.getTimestamp(i + 1);
+                     //   columnValues += timestamp == null ? "null" : String.format("'%1$TF %1$TT.%1$TN'", timestamp);
+                        columnValues += timestamp == null ? "null" : "'" + timestamp.toString() + "'";
+                        break;
                     default:
                         v = rs.getString(i + 1);
                         if (v != null) {
