@@ -26,6 +26,9 @@ public class Application implements CommandLineRunner {
     @Value("#{'${tableNames}'.split(',')}")
     private List<String> tableNames;
 
+    @Value("#{'${excludesTableNames}'.split(',')}")
+    private List<String> excludesTableNames;
+
 
 
     public static void main(String[] args) throws Exception {
@@ -41,6 +44,7 @@ public class Application implements CommandLineRunner {
         List<String> list = tableNamesDao.findTableNames();
 
         list.addAll(tableNames);
+        list.removeAll(excludesTableNames);
 
         for (String tableName : list) {
             tableDataProcessor.readTableDataAndSaveToFile(tableName);

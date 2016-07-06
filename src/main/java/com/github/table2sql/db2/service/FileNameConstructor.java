@@ -1,5 +1,6 @@
 package com.github.table2sql.db2.service;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,9 @@ public class FileNameConstructor {
 
     @Value("${file.name.template}")
     private String template ;
+
+    @Value("${outputDir}")
+    private String outputDir =".";
 
 
 
@@ -34,6 +38,7 @@ public class FileNameConstructor {
         }
 
         String result = template.replaceAll("\\{schema\\}", schemaName).replaceAll("\\{tablename\\}", tableName);
+        result = FilenameUtils.concat(outputDir, result);
         return result;
     }
 }
